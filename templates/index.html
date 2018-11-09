@@ -6,11 +6,8 @@
 </head>
 <body>
     <ul>
-        {% for dir in dirs %}
-            <li> <a href="{{ dir }}">{{ dir }}</a> </li>
-        {% endfor %}
-        {% for file in files %}
-            <li> <a href="{{ file }}">{{ file }}</a> </li>
+        {% for content in contents %}
+            <li> <a href="{{ content }}">{{ content }}</a> </li>
         {% endfor %}
     </ul>
 </body>
