@@ -1,5 +1,4 @@
 -- left in due to "fs.entries" not working
-_G.file = require "fs"
 
 function file_ext(file)
   return file:match("^.+(%..+)$")
@@ -27,14 +26,14 @@ return function (request)
           headers = {
             ["content-type"] = "text/html",
           },
-          body = file.read_file("static/" .. request.path)
+          body = fs.read_file("static/" .. request.path)
       }
     else
       return {
         headers = {
           ["content-type"] = "application/octet-stream",
         },
-        body = file.read_file("static/" .. request.path)
+        body = fs.read_file("static/" .. request.path)
       }
     end
   else
