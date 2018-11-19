@@ -1,4 +1,4 @@
--- left in due to "fs.entries" not working
+-- Torchbear Static Webserver
 
 function file_ext(file)
   return file:match("^.+(%..+)$")
@@ -49,8 +49,5 @@ return function (request)
           })
       }
   end
-
-
-
   
 end

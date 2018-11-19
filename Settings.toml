@@ -1,13 +1,2 @@
-
-
 #[web-server]
 host = "0.0.0.0:3000"
-
-#[markdown]
-ext_header_ids = 1
-
-#[yaml]
-strict = 1 # https://github.com/chyh1990/yaml-rust/issues/102
-
-init = "init.lua"
-templates_path = "templates/**/*"  # expected by lib.rs
