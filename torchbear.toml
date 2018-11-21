@@ -1,2 +1,7 @@
 [web-server]
 host = "0.0.0.0:3000"
+
+# TLS server only starts if the key and certificate is specified
+tls_certificate = "cert.pem"
+tls_private = "key.pem"
+tls_host = "0.0.0.0:3001"
