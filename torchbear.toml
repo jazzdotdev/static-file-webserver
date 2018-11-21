@@ -7,4 +7,6 @@ tls_private = "key.pem"
 tls_host = "0.0.0.0:3001"
 
 [general]
+# This should be optional, it defaults to init.lua
+# see https://github.com/foundpatterns/torchbear/issues/111
 init = "init.lua"
