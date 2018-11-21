@@ -1,11 +1,15 @@
 -- Torchbear Static Webserver
 
+log.info("Initialize web server")
+
 function file_ext(file)
   return file:match("^.+(%..+)$")
 end
 
 -- Handler function
 return function (request)
+
+  log.info("Handle request")
   
   if not fs.exists("./static/" .. request.path) then
     return {

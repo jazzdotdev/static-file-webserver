@@ -5,3 +5,6 @@ host = "0.0.0.0:3000"
 tls_certificate = "cert.pem"
 tls_private = "key.pem"
 tls_host = "0.0.0.0:3001"
+
+[general]
+init = "init.lua"
