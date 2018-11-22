@@ -1,4 +1,4 @@
--- Torchbear Static Webserver
+-- Simple Webserver · Torchbear App
 
 log.info("Initialize web server")
 
