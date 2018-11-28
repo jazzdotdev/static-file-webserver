@@ -24,31 +24,26 @@ return function (request)
   end
 
   if fs.is_file("./static/" .. request.path) then
-  -- TODO: Have a function to match the content-type with the extension
-    if file_ext(request.path) == ".htm" or file_ext(request.path) == ".html" then
-      return {
-          headers = {
-            ["content-type"] = "text/html",
-          },
-          body = fs.read_file("static/" .. request.path)
-      }
-    else
-      return {
+
+    local _mime = mime.guess_mime_type(request.path)
+    return {
         headers = {
-          ["content-type"] = "application/octet-stream",
+          ["content-type"] = _mime,
         },
         body = fs.read_file("static/" .. request.path)
-      }
-    end
+    }
+
   else
 
     local contents = fs.read_dir("./static/" .. request.path) or {}
-
+    
+    -- Remember to use a glob when using tera to render
+    local _tera = tera.new("./templates/*")
     return {
           headers = {
             ["content-type"] = "text/html",
           },
-          body = render("index.html", {
+          body = _tera:render("index.html", {
             contents = contents,
           })
       }
