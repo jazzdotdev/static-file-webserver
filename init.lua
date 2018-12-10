@@ -2,10 +2,6 @@
 
 log.info("Initialize web server")
 
-function file_ext(file)
-  return file:match("^.+(%..+)$")
-end
-
 -- Handler function
 return function (request)
 
