@@ -1,0 +1,15 @@
+web-server = {
+    address = "0.0.0.0",
+    port = "3000",
+    
+    # TLS server only starts if the key and certificate is specified
+    tls_certificate = "cert.pem",
+    tls_private = "key.pem",
+    tls_address = "0.0.0.0",
+    tls_port = "3001",
+    single_actor = true,
+}
+
+general = {
+    init = "init.lua",
+}
