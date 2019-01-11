@@ -1,11 +1,12 @@
+#!/usr/bin/env torchbear
 -- Simple Webserver · Torchbear App
 
-log.info("Initialize web server")
+_log.info("Initialize web server")
 
 -- Handler function
 return function (request)
 
-  log.info("Handle request")
+  _log.info("Handle request")
   
   if not fs.exists("./static/" .. request.path) then
     return {
