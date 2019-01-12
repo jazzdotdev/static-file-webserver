@@ -1,14 +1,23 @@
 #!/usr/bin/env torchbear
 -- Simple Webserver · Torchbear App
 
+if torchbear.os == "android" then
+  path = "/data/data/com.termux/files/usr/share/simple-webserver/static/" 
+elseif torchbear.os == "linux" then
+  path = "/usr/share/simple-webserver"
+end
+
 _log.info("Initialize web server")
+
+static_path = path .. "/static/"
+templates_path = path .. "/templates/"
 
 -- Handler function
 return function (request)
 
   _log.info("Handle request")
   
-  if not fs.exists("./static/" .. request.path) then
+  if not fs.exists(static_path .. request.path) then
     return {
       headers = {
         ["content-type"] = "application/json",
@@ -20,22 +29,22 @@ return function (request)
     }
   end
 
-  if fs.is_file("./static/" .. request.path) then
+  if fs.is_file(static_path .. request.path) then
 
     local _mime = mime.guess_mime_type(request.path)
     return {
         headers = {
           ["content-type"] = _mime,
         },
-        body = fs.read_file("static/" .. request.path)
+        body = fs.read_file(static_path .. request.path)
     }
 
   else
 
-    local contents = fs.read_dir("./static/" .. request.path) or {}
+    local contents = fs.read_dir(static_path .. request.path) or {}
     
     -- Remember to use a glob when using tera to render
-    local _tera = tera.new("./templates/*")
+    local _tera = tera.new(templates_path .. "/*")
     return {
           headers = {
             ["content-type"] = "text/html",
