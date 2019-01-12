@@ -1,10 +1,18 @@
 #!/usr/bin/env torchbear
 -- Simple Webserver · Torchbear App
 
-if torchbear.os == "android" then
-  path = "/data/data/com.termux/files/usr/share/simple-webserver/static/" 
-elseif torchbear.os == "linux" then
-  path = "/usr/share/simple-webserver"
+path = table.remove(arg, 2)
+
+if not path then
+  if torchbear.os == "android" then
+    path = "/data/data/com.termux/files/usr/share/simple-webserver/" 
+  elseif torchbear.os == "linux" then
+    path = "/usr/share/simple-webserver"
+  end
+end
+
+if not fs.exists(path) then
+  _log.error("Path does not exist")
 end
 
 _log.info("Initialize web server")
