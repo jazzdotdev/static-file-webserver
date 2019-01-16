@@ -1,31 +1,32 @@
 #!/usr/bin/env torchbear
 -- Simple Webserver · Torchbear App
 
-path = table.remove(arg, 2)
+web_path = table.remove(arg, 2) or ""
 
-if not path then
-  if torchbear.os == "android" then
-    path = "/data/data/com.termux/files/usr/share/simple-webserver/" 
-  elseif torchbear.os == "linux" then
-    path = "/usr/share/simple-webserver"
-  end
+if torchbear.os == "android" then
+  default_path = "/data/data/com.termux/files/usr/share/simple-webserver/" 
+elseif torchbear.os == "linux" then
+  default_path = "/usr/share/simple-webserver/"
 end
 
-if not fs.exists(path) then
+if not fs.exists(default_path) then
   _log.error("Path does not exist")
 end
 
 _log.info("Initialize web server")
 
-static_path = path .. "/static/"
-templates_path = path .. "/templates/"
+if not fs.exists(web_path) then
+  web_path = default_path .. "/static/"
+end
+
+templates_path = default_path .. "/templates/"
 
 -- Handler function
 return function (request)
 
   _log.info("Handle request")
   
-  if not fs.exists(static_path .. request.path) then
+  if not fs.exists(web_path .. request.path) then
     return {
       headers = {
         ["content-type"] = "application/json",
@@ -37,19 +38,19 @@ return function (request)
     }
   end
 
-  if fs.is_file(static_path .. request.path) then
+  if fs.is_file(web_path .. request.path) then
 
     local _mime = mime.guess_mime_type(request.path)
     return {
         headers = {
           ["content-type"] = _mime,
         },
-        body = fs.read_file(static_path .. request.path)
+        body = fs.read_file(web_path .. request.path)
     }
 
   else
 
-    local contents = fs.read_dir(static_path .. request.path) or {}
+    local contents = fs.read_dir(web_path .. request.path) or {}
     
     -- Remember to use a glob when using tera to render
     local _tera = tera.new(templates_path .. "/*")
