@@ -1,5 +1,4 @@
-#!/usr/bin/env torchbear
--- Simple Webserver · Torchbear App
+#!/usr/bin/env speakeasy
 
 web_path = table.remove(arg, 2) or ""
 
