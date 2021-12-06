@@ -3,9 +3,9 @@
 web_path = table.remove(arg, 2) or ""
 
 if torchbear.os == "android" then
-  default_path = "/data/data/com.termux/files/usr/share/simple-webserver/" 
+  default_path = "/data/data/com.termux/files/usr/share/static-file-webserver/" 
 elseif torchbear.os == "linux" then
-  default_path = "/usr/share/simple-webserver/"
+  default_path = "/usr/share/static-file-webserver/"
 end
 
 if not fs.exists(default_path) then
